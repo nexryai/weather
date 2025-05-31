@@ -1,39 +1,83 @@
-import js from '@eslint/js';
-import { includeIgnoreFile } from '@eslint/compat';
-import svelte from 'eslint-plugin-svelte';
-import globals from 'globals';
-import { fileURLToPath } from 'node:url';
-import ts from 'typescript-eslint';
-import svelteConfig from './svelte.config.js';
-
-const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import svelte from "eslint-plugin-svelte";
+import globals from "globals";
+import ts from "typescript-eslint";
 
 export default ts.config(
-	includeIgnoreFile(gitignorePath),
-	js.configs.recommended,
-	...ts.configs.recommended,
-	...svelte.configs.recommended,
-	{
-		languageOptions: {
-			globals: { ...globals.browser, ...globals.node }
-		},
-		rules: { // typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
-		// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
-		"no-undef": 'off' }
-	},
-	{
-		files: [
-			'**/*.svelte',
-			'**/*.svelte.ts',
-			'**/*.svelte.js'
-		],
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				extraFileExtensions: ['.svelte'],
-				parser: ts.parser,
-				svelteConfig
-			}
-		}
-	}
+    js.configs.recommended,
+    ...ts.configs.recommended,
+    ...svelte.configs["flat/recommended"],
+    importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.typescript,
+    {
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+            globals: {
+                ...globals.browser,
+                ...globals.node
+            }
+        }
+    },
+    {
+        files: ["**/*.svelte", "**/*.ts", "**/*.js"],
+
+        languageOptions: {
+            parserOptions: {
+                parser: ts.parser
+            }
+        },
+
+        settings: {
+            "import/ignore": [
+                "\\.svelte$"
+            ],
+		    "import/parsers": {
+			    "svelte-eslint-parser": [".svelte"],
+			    "@typescript-eslint/parser": [".ts"],
+			    "espree": [".js"]
+		    }
+        },
+
+        rules: {
+            "@typescript-eslint/no-unused-expressions": "off",
+            "@typescript-eslint/ban-ts-comment": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "indent": ["error", 4, { "SwitchCase": 1 }],
+            "quotes": ["error", "double"],
+            "semi": ["error", "always"],
+            "svelte/require-each-key": "off",
+            "import/no-cycle": "error",
+            // https://github.com/import-js/eslint-plugin-import/issues/2765
+            "import/no-unresolved": "off",
+            "import/no-named-as-default": "off",
+            "import/order": [
+                "error",
+                {
+                    groups: ["builtin", "external", "parent", "sibling", "index", "object"],
+                    pathGroups: [
+                        {
+                            pattern: "{svelte,$app/**,elysia}",
+                            group: "builtin",
+                            position: "before",
+                        },
+                        {
+                            pattern: "{@src/**,$lib/**,@prisma/client}",
+                            group: "parent",
+                            position: "before",
+                        },
+                    ],
+                    pathGroupsExcludedImportTypes: ["type"],
+                    alphabetize: {
+                        order: "asc",
+                    },
+                    "newlines-between": "always",
+                },
+            ],
+        }
+    },
+    {
+        ignores: ["build/", ".svelte-kit/", "dist/", "node_modules/"]
+    }
 );
