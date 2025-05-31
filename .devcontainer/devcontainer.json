@@ -1,0 +1,31 @@
+{
+    "name": "Blog Dev",
+    "image": "node:22",
+    "features": {
+        "ghcr.io/devcontainers-extra/features/pnpm:2": {},
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "node",
+    "overrideCommand": true,
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "svelte.svelte-vscode",
+                "dbaeumer.vscode-eslint",
+                "rvest.vs-code-prettier-eslint",
+                "bradlc.vscode-tailwindcss"
+            ],
+            "settings": {
+                "editor.linkedEditing": true,
+                "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+                "editor.formatOnPaste": true,
+                "editor.formatOnSave": false,
+                "html.format.wrapLineLength": 0,
+                "editor.quickSuggestions": {
+                    "strings": "on"
+                }
+            }
+        }
+    }
+}
