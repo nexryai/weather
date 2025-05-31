@@ -14,17 +14,22 @@
                 "svelte.svelte-vscode",
                 "dbaeumer.vscode-eslint",
                 "rvest.vs-code-prettier-eslint",
-                "bradlc.vscode-tailwindcss"
+                "bradlc.vscode-tailwindcss",
+                "editorconfig.editorconfig"
             ],
             "settings": {
                 "editor.linkedEditing": true,
-                "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
                 "editor.formatOnPaste": true,
                 "editor.formatOnSave": false,
                 "html.format.wrapLineLength": 0,
                 "editor.quickSuggestions": {
                     "strings": "on"
-                }
+                },
+                "eslint.useFlatConfig": true,
+                "eslint.validate": [
+                    "typescript",
+                    "svelte"
+                ]
             }
         }
     }
