@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import type { WeatherData } from "$lib/types";
     import XWeather from "$lib/components/XWeather.svelte";
+    import type { WeatherData } from "$lib/types";
 
     let isLoading = $state(true);
     let weatherData: WeatherData | null = $state(null);
@@ -20,6 +20,7 @@
             const data = await resp.json();
             weatherData = data as WeatherData;
         } catch (err) {
+            console.error("Error parsing weather data:", err);
             error = "Error parsing data";
         } finally {
             isLoading = false;
