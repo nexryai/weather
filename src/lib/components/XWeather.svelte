@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { WeatherData } from "$lib/types";
 
+    import WeatherIcon from "./WeatherIcon.svelte";
+
     interface Props {
         weather: WeatherData;
     }
@@ -36,8 +38,7 @@
                 <span>{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
             </li>
             <li>
-                <span class="font-semibold">Weather Code:</span>
-                <span>{weather.current.weather_code}</span>
+                <WeatherIcon code={weather.current.weather_code} isDay={weather.current.is_day === 0 ? true : false} />
             </li>
             <li>
                 <span class="font-semibold">Humidity:</span>
