@@ -6,9 +6,10 @@
     interface Props {
         code: number;
         isDay?: boolean;
+        size?: number;
     }
 
-    const { code, isDay }: Props = $props();
+    const { code, isDay, size }: Props = $props();
     const theme = $derived(getContext<() => string>("iconTheme")());
 
     const baseUrl = $derived<string>(
@@ -262,7 +263,8 @@
         src={`${baseUrl}/${icon.image}`}
         alt={icon.description}
         title={icon.description}
-        class="w-16 h-16 inline-block align-middle"
+        class="inline-block align-middle"
+        width="{size || 64}"
+        height="{size || 64}"
     />
 {/key}
-<span class="ml-2 align-middle text-gray-700">{icon.description}</span>
