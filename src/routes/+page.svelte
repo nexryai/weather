@@ -28,12 +28,6 @@
         } finally {
             isLoading = false;
         }
-
-        // 2秒おきにアイコンテーマを切り替え
-        setInterval(() => {
-            console.log("Switching icon theme");
-            iconTheme = iconTheme === "meteocons" ? "openweathermap" : "meteocons";
-        }, 2000);
     });
 </script>
 
