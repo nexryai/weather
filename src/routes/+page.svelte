@@ -28,7 +28,7 @@
             weatherData = data as WeatherData;
         } catch (err) {
             console.error("Error parsing weather data:", err);
-            error = "Error parsing data";
+            error = err instanceof Error ? err.message : "Unknown error";
         } finally {
             isLoading = false;
         }
@@ -36,11 +36,16 @@
 </script>
 
 <div>
-    <WeatherBackground code={weatherData?.current.weather_code || 0} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
+    <WeatherBackground code={weatherData?.current.weather_code || undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
     {#if isLoading}
-        <p>Loading...</p>
+        <div class="flex items-center justify-center h-screen w-full text-center">
+            <p>Loading...</p>
+        </div>
     {:else if error}
-        <p>Error: {error}</p>
+        <div class="flex flex-col items-center justify-center h-screen w-full text-center">
+            <p>Unrecoverable Error. Please reload.</p>
+            <p class="mt-4">Technical Details: <span class="font-mono">{error}</span></p>
+        </div>
     {:else if weatherData}
         <XWeather weather={weatherData} bind:useLightText />
     {/if}
