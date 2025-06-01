@@ -3,60 +3,79 @@
 
     interface Props {
         code: number;
-        isDay?: boolean;
+        isDay: boolean;
+        useLightText: boolean;
     }
 
-    const { code = $bindable<number>(), isDay = $bindable<boolean>() }: Props = $props();
+    let { code = $bindable<number>(), isDay = $bindable<boolean>(), useLightText = $bindable<boolean>() }: Props = $props();
     const theme = $derived(getContext<() => string>("bgTheme")());
 
-    const bgClass = $derived.by(() => {
+    let bgClass = $state("");
+
+    $effect(() => {
         switch (theme) {
             case "gradient":
+                useLightText = !isDay;
+
                 // Sunny
                 if ([0, 1].includes(code)) {
-                    return isDay
+                    useLightText = true;
+                    bgClass = isDay
                         ? "bg-gradient-to-tl from-blue-500 from-0% via-blue-400 via-70% to-red-50 to-100%"
                         : "bg-gradient-to-tl from-slate-900 from-0% via-slate-800 via-60% to-slate-500 to-100%";
+
+                    return;
                 }
 
                 if (!isDay) {
                     // これ以降の夜間の天候の背景は統一
-                    return "bg-gradient-to-tl from-gray-600 from-0% via-gray-800 via-50% to-slate-800 to-100%";
+                    bgClass = "bg-gradient-to-tl from-gray-600 from-0% via-gray-800 via-50% to-slate-800 to-100%";
+                    return;
                 }
 
                 // Partly Cloudy
                 if (code === 2) {
-                    return "bg-gradient-to-tl from-blue-200 from-0% via-slate-200 via-50% to-slate-50 to-100%";
+                    bgClass = "bg-gradient-to-tl from-blue-200 from-0% via-slate-200 via-50% to-slate-50 to-100%";
+                    return;
                 }
 
                 // Cloudy
                 if (code === 3) {
-                    return "bg-gradient-to-tl from-blue-50 from-0% via-slate-300 via-50% to-slate-50 to-100%";
+                    bgClass = "bg-gradient-to-tl from-blue-50 from-0% via-slate-300 via-50% to-slate-50 to-100%";
+                    return;
                 }
 
                 // Light rain
                 if ([45, 48, 51, 53, 56, 57, 61, 71].includes(code)) {
-                    return "bg-gradient-to-tl from-slate-400 from-0% via-slate-300 via-50% to-slate-100 to-100%";
+                    bgClass = "bg-gradient-to-tl from-slate-400 from-0% via-slate-300 via-50% to-slate-100 to-100%";
+                    return;
                 }
 
                 // Rain
                 if ([55, 63, 65, 66, 67, 73, 75, 77].includes(code)) {
-                    return "bg-gradient-to-tl from-slate-500 from-0% via-slate-400 via-50% to-slate-400 to-100%";
+                    useLightText = true;
+                    bgClass = "bg-gradient-to-tl from-slate-500 from-0% via-slate-400 via-50% to-slate-400 to-100%";
+                    return;
                 }
 
                 // Stormy
                 if ([82, 95, 96, 99].includes(code)) {
-                    return "bg-gradient-to-tl from-slate-600 from-0% via-slate-500 via-50% to-slate-500 to-100%";
+                    bgClass = "bg-gradient-to-tl from-slate-600 from-0% via-slate-500 via-50% to-slate-500 to-100%";
+                    return;
                 }
 
                 // Fallback
-                return "bg-gradient-to-tl from-slate-500 from-0% via-slate-400 via-50% to-slate-400 to-100%";
+                bgClass = "bg-gradient-to-tl from-slate-500 from-0% via-slate-400 via-50% to-slate-400 to-100%";
+                break;
             case "weathericons":
-                return `wi wi-owm-${code}`;
+                bgClass = `wi wi-owm-${code}`;
+                break;
             case "openweathermap":
-                return `owm ow-${code}`;
+                bgClass = `owm ow-${code}`;
+                break;
             default:
-                return "bg-gradient-to-tl from-blue-500 from-0% via-blue-400 via-50% to-red-50 to-100%";
+                bgClass = "bg-gradient-to-tl from-blue-500 from-0% via-blue-400 via-50% to-red-50 to-100%";
+                break;
         }
     });
 </script>
