@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="p-12">
-            <div class="bg-[#f0f0f04d] backdrop-blur-2xl rounded-lg p-6 shadow-md w-96">
+            <div class="bg-[#f0f0f07a] backdrop-blur-2xl rounded-lg p-6 shadow-md w-96">
                 {#each Object.entries(weather.daily_summary) as [date, timeGroup]}
                     <div class="flex justify-between items-center">
                         <p class="font-bold">{formatDate(date)}</p>
