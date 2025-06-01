@@ -1,18 +1,25 @@
 <script lang="ts">
     import { getContext } from "svelte";
 
+    import { fade } from "svelte/transition";
+
     interface Props {
-        code: number;
+        code: number | undefined;
         isDay: boolean;
         useLightText: boolean;
     }
 
-    let { code = $bindable<number>(), isDay = $bindable<boolean>(), useLightText = $bindable<boolean>() }: Props = $props();
+    let { code = $bindable<number | undefined>(), isDay = $bindable<boolean>(), useLightText = $bindable<boolean>() }: Props = $props();
     const theme = $derived(getContext<() => string>("bgTheme")());
 
     let bgClass = $state("");
 
     $effect(() => {
+        if (code === undefined) {
+            bgClass = "";
+            return;
+        }
+
         switch (theme) {
             case "gradient":
                 useLightText = !isDay;
@@ -80,7 +87,9 @@
     });
 </script>
 
-<div id="app-bg" class={bgClass}></div>
+{#key bgClass}
+    <div in:fade={{ duration: 300 }} id="app-bg" class={bgClass}></div>
+{/key}
 
 <style>
     #app-bg {
