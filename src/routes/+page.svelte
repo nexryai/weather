@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, setContext } from "svelte";
 
+    import WeatherBackground from "$lib/components/WeatherBackground.svelte";
     import XWeather from "$lib/components/XWeather.svelte";
     import type { WeatherData } from "$lib/types";
 
@@ -8,8 +9,10 @@
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
     let iconTheme = $state("meteocons");
+    let backgroundTheme = $state("gradient");
 
     setContext("iconTheme", () => iconTheme);
+    setContext("bgTheme", () => backgroundTheme);
 
     onMount(async () => {
         const resp = await fetch("https://skyflame.nexryai.workers.dev/v1/overview?withDailySummary=true");
@@ -32,6 +35,7 @@
 </script>
 
 <div>
+    <WeatherBackground code={weatherData?.current.weather_code || 0} isDay={weatherData?.current.is_day === 1 ? true : false} />
     {#if isLoading}
         <p>Loading...</p>
     {:else if error}
