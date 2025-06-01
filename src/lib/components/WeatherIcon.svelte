@@ -1,6 +1,8 @@
 <script lang="ts">
     import { getContext } from "svelte";
 
+    import { fade } from "svelte/transition";
+
     interface Props {
         code: number;
         isDay?: boolean;
@@ -254,10 +256,13 @@
     const icon = $derived(icons[code]?.[isDay ? "day" : "night"] ?? fallback);
 </script>
 
-<img
-    src={`${baseUrl}/${icon.image}`}
-    alt={icon.description}
-    title={icon.description}
-    class="w-16 h-16 inline-block align-middle"
-/>
+{#key icon}
+    <img
+        in:fade={{ duration: 300 }}
+        src={`${baseUrl}/${icon.image}`}
+        alt={icon.description}
+        title={icon.description}
+        class="w-16 h-16 inline-block align-middle"
+    />
+{/key}
 <span class="ml-2 align-middle text-gray-700">{icon.description}</span>
