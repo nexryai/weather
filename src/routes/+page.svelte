@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, setContext } from "svelte";
 
     import XWeather from "$lib/components/XWeather.svelte";
     import type { WeatherData } from "$lib/types";
@@ -7,6 +7,9 @@
     let isLoading = $state(true);
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
+    let iconTheme = $state("meteocons");
+
+    setContext("iconTheme", () => iconTheme);
 
     onMount(async () => {
         const resp = await fetch("https://skyflame.nexryai.workers.dev/v1/overview?withDailySummary=true");
@@ -25,6 +28,12 @@
         } finally {
             isLoading = false;
         }
+
+        // 2秒おきにアイコンテーマを切り替え
+        setInterval(() => {
+            console.log("Switching icon theme");
+            iconTheme = iconTheme === "meteocons" ? "openweathermap" : "meteocons";
+        }, 2000);
     });
 </script>
 

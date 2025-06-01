@@ -38,7 +38,7 @@
                 <span>{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
             </li>
             <li>
-                <WeatherIcon code={weather.current.weather_code} isDay={weather.current.is_day === 0 ? true : false} />
+                <WeatherIcon code={weather.current.weather_code} isDay={weather.current.is_day === 1 ? true : false} />
             </li>
             <li>
                 <span class="font-semibold">Humidity:</span>
