@@ -8,6 +8,7 @@
     let isLoading = $state(true);
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
+    let useLightText = $state(false);
     let iconTheme = $state("meteocons");
     let backgroundTheme = $state("gradient");
 
@@ -35,12 +36,12 @@
 </script>
 
 <div>
-    <WeatherBackground code={weatherData?.current.weather_code || 0} isDay={weatherData?.current.is_day === 1 ? true : false} />
+    <WeatherBackground code={weatherData?.current.weather_code || 0} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
     {#if isLoading}
         <p>Loading...</p>
     {:else if error}
         <p>Error: {error}</p>
     {:else if weatherData}
-        <XWeather weather={weatherData} />
+        <XWeather weather={weatherData} bind:useLightText />
     {/if}
 </div>
