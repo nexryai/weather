@@ -10,7 +10,7 @@
     let error: string | null = $state(null);
     let useLightText = $state(false);
     let iconTheme = $state("meteocons");
-    let backgroundTheme = $state("gradient");
+    let backgroundTheme = $state("unsplash1");
 
     setContext("iconTheme", () => iconTheme);
     setContext("bgTheme", () => backgroundTheme);
