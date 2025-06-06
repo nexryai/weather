@@ -14,9 +14,10 @@
 
     const baseUrl = $derived<string>(
         theme === "openweathermap" ? "https://openweathermap.org/img/wn/"
-            : theme === "meteocons" ? "https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/"
-                : theme === "meteocons-anim" ? "https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/animated/svg/"
-                    : "https://cdn.jsdelivr.net/gh/meteocons/meteocons@latest/svg/"
+            : theme === "fluent" ? "https://raw.githubusercontent.com/Grabstertv/WeatherNowIcons/refs/heads/main/SVG/"
+                : theme === "meteocons" ? "https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/"
+                    : theme === "meteocons-anim" ? "https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/animated/svg/"
+                        : "https://cdn.jsdelivr.net/gh/meteocons/meteocons@latest/svg/"
     );
 
     const icons = $derived<Record<number, { day: { description: string; image: string }, night: { description: string; image: string } }>>(
@@ -132,6 +133,119 @@
             99: {
                 day: { description: "Thunderstorm With Hail", image: "11d@2x.png" },
                 night: { description: "Thunderstorm With Hail", image: "11n@2x.png" }
+            }
+        } : theme === "fluent" ? {
+            0: {
+                day: { description: "Sunny", image: "CLEAR1.svg" },
+                night: { description: "Clear", image: "CLEAR0.svg" }
+            },
+            1: {
+                day: { description: "Mainly Sunny", image: "CLEAR1.svg" },
+                night: { description: "Mainly Clear", image: "CLEAR0.svg" }
+            },
+            2: {
+                day: { description: "Partly Cloudy", image: "PCLOUDY1.svg" },
+                night: { description: "Partly Cloudy", image: "PCLOUDY0.svg" }
+            },
+            3: {
+                day: { description: "Cloudy", image: "MCLOUDY.svg" },
+                night: { description: "Cloudy", image: "MCLOUDY.svg" }
+            },
+            45: {
+                day: { description: "Foggy", image: "FOG1.svg" },
+                night: { description: "Foggy", image: "FOG0.svg" }
+            },
+            48: {
+                day: { description: "Rime Fog", image: "FOG.svg" },
+                night: { description: "Rime Fog", image: "FOG.svg" }
+            },
+            51: {
+                day: { description: "Light Drizzle", image: "RAIN.svg" },
+                night: { description: "Light Drizzle", image: "RAIN.svg" }
+            },
+            53: {
+                day: { description: "Drizzle", image: "RAIN.svg" },
+                night: { description: "Drizzle", image: "RAIN.svg" }
+            },
+            55: {
+                day: { description: "Heavy Drizzle", image: "RAIN.svg" },
+                night: { description: "Heavy Drizzle", image: "RAIN.svg" }
+            },
+            56: {
+                day: { description: "Light Freezing Drizzle", image: "SLEET.svg" },
+                night: { description: "Light Freezing Drizzle", image: "SLEET.svg" }
+            },
+            57: {
+                day: { description: "Freezing Drizzle", image: "SLEET.svg" },
+                night: { description: "Freezing Drizzle", image: "SLEET.svg" }
+            },
+            61: {
+                day: { description: "Light Rain", image: "RAIN.svg" },
+                night: { description: "Light Rain", image: "RAIN.svg" }
+            },
+            63: {
+                day: { description: "Rain", image: "RAIN.svg" },
+                night: { description: "Rain", image: "RAIN.svg" }
+            },
+            65: {
+                day: { description: "Heavy Rain", image: "RAIN.svg" },
+                night: { description: "Heavy Rain", image: "RAIN.svg" }
+            },
+            66: {
+                day: { description: "Light Freezing Rain", image: "SLEET.svg" },
+                night: { description: "Light Freezing Rain", image: "SLEET.svg" }
+            },
+            67: {
+                day: { description: "Freezing Rain", image: "SLEET.svg" },
+                night: { description: "Freezing Rain", image: "SLEET.svg" }
+            },
+            71: {
+                day: { description: "Light Snow", image: "LSNOW.svg" },
+                night: { description: "Light Snow", image: "LSNOW.svg" }
+            },
+            73: {
+                day: { description: "Snow", image: "SNOW.svg" },
+                night: { description: "Snow", image: "SNOW.svg" }
+            },
+            75: {
+                day: { description: "Heavy Snow", image: "SNOW.svg" },
+                night: { description: "Heavy Snow", image: "SNOW.svg" }
+            },
+            77: {
+                day: { description: "Snow Grains", image: "SNOW.svg" },
+                night: { description: "Snow Grains", image: "SNOW.svg" }
+            },
+            80: {
+                day: { description: "Light Showers", image: "SHOWER.svg" },
+                night: { description: "Light Showers", image: "SHOWER.svg" }
+            },
+            81: {
+                day: { description: "Showers", image: "SHOWER.svg" },
+                night: { description: "Showers", image: "SHOWER.svg" }
+            },
+            82: {
+                day: { description: "Heavy Showers", image: "SHOWER.svg" },
+                night: { description: "Heavy Showers", image: "SHOWER.svg" }
+            },
+            85: {
+                day: { description: "Light Snow Showers", image: "LSNOW.svg" },
+                night: { description: "Light Snow Showers", image: "LSNOW.svg" }
+            },
+            86: {
+                day: { description: "Snow Showers", image: "SNOW.svg" },
+                night: { description: "Snow Showers", image: "SNOW.svg" }
+            },
+            95: {
+                day: { description: "Thunderstorm", image: "TSTORM.svg" },
+                night: { description: "Thunderstorm", image: "TSTORM.svg" }
+            },
+            96: {
+                day: { description: "Light Thunderstorms With Hail", image: "HAIL.svg" },
+                night: { description: "Light Thunderstorms With Hail", image: "HAIL.svg" }
+            },
+            99: {
+                day: { description: "Thunderstorm With Hail", image: "TSHOWER.svg" },
+                night: { description: "Thunderstorm With Hail", image: "TSHOWER.svg" }
             }
         } : theme === "meteocons" || theme === "meteocons-anim" ? {
             0: {

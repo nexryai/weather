@@ -11,7 +11,7 @@
     let error: string | null = $state(null);
     let useLightText = $state(false);
     let settingsOpen = $state(false);
-    let iconTheme = $state("meteocons");
+    let iconTheme = $state("fluent");
     let backgroundTheme = $state("unsplash1");
 
     setContext("iconTheme", () => iconTheme);
