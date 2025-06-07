@@ -62,7 +62,9 @@
         if (!pulling) return;
         touchCurrentY = e.touches[0].clientY;
         pullDistance = Math.max(0, touchCurrentY - touchStartY);
-        if (pullDistance > 0) {
+        console.log("Pull distance:", pullDistance);
+        // スクロール最上部でのみpreventDefault
+        if (pullDistance > 0 && window.scrollY === 0) {
             e.preventDefault();
         }
     };
@@ -94,7 +96,7 @@
     ontouchmove={handleTouchMove}
     ontouchend={handleTouchEnd}
     class="min-h-screen"
-    style="touch-action: pan-x;"
+    style="touch-action: pan-y;"
 >
     {#if pulling && pullDistance > 2}
         <div class="fixed top-0 left-0 w-full flex flex-col items-center justify-center z-50 text-white" style="height: {pulling ? pullDistance : 0}px">
