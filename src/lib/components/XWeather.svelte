@@ -25,57 +25,55 @@
     };
 
 </script>
-<div class="w-full px-16 mt-8 p-6 flex justify-between" class:text-white={useLightText}>
+<div class="w-full px-16 mt-8 p-6 flex flex-col lg:flex-row lg:justify-between" class:text-white={useLightText}>
     {#if weather}
         <div>
-            <div class="flex items-center">
+            <div class="mt-16 flex items-center">
                 <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1 ? true : false} />
                 <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
             </div>
 
-            <div>
-                <div class="flex items-center mt-4">
+            <div class="mt-32 flex flex-wrap gap-x-8 gap-y-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunrise.svg" alt="Sunrise Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
+                    <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunset.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2">{formatTime(weather.daily[todayKey].sunset)}</span>
+                    <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunset)}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/thermometer-raindrop.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2">{weather.current.relative_humidity_2m} {weather.current_units.relative_humidity_2m}</span>
+                    <span class="text-md font-semibold ml-2">{weather.current.relative_humidity_2m} {weather.current_units.relative_humidity_2m}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/barometer.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2"> {weather.current.surface_pressure} {weather.current_units.surface_pressure}</span>
+                    <span class="text-md font-semibold ml-2"> {weather.current.surface_pressure} {weather.current_units.surface_pressure}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/windsock.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2">{weather.current.wind_direction_10m}{weather.current_units.wind_direction_10m} {weather.current.wind_speed_10m} {weather.current_units.wind_speed_10m}</span>
+                    <span class="text-md font-semibold ml-2">{weather.current.wind_direction_10m}{weather.current_units.wind_direction_10m} {weather.current.wind_speed_10m} {weather.current_units.wind_speed_10m}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2"> {weather.current.wind_gusts_10m} {weather.current_units.wind_gusts_10m}</span>
+                    <span class="text-md font-semibold ml-2"> {weather.current.wind_gusts_10m} {weather.current_units.wind_gusts_10m}</span>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/raindrop-measure.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-2xl font-semibold ml-2"> {weather.current.precipitation} {weather.current_units.precipitation}</span>
+                    <span class="text-md font-semibold ml-2"> {weather.current.precipitation} {weather.current_units.precipitation}</span>
                 </div>
-                <ul class="space-y-1 text-gray-800">
-                    <li>
-                        <span class="font-semibold">Time:</span>
-                        <span>{weather.current.time}</span>
-                    </li>
-                </ul>
             </div>
-            <div class="flex justify-between items-center mt-8">
+            <div class="flex justify-center items-center mt-8">
                 <div>
                     <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${Math.round(weather.daily[todayKey].uv_index_max)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
                 </div>
                 <div>
                     <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind-beaufort-${Math.min(weather.current.beaufort_wind_scale, 12)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
                 </div>
+            </div>
+            <div class="mt-4 space-y-1 text-gray-800">
+                <span class="font-semibold">Time:</span>
+                <span>{weather.current.time}</span>
             </div>
         </div>
         <div class="p-12">
