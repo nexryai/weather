@@ -69,9 +69,12 @@
                     </li>
                 </ul>
             </div>
-            <div>
+            <div class="flex justify-between items-center mt-8">
                 <div>
                     <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${Math.round(weather.daily[todayKey].uv_index_max)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
+                </div>
+                <div>
+                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind-beaufort-${Math.min(weather.current.beaufort_wind_scale, 12)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
                 </div>
             </div>
         </div>
