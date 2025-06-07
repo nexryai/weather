@@ -54,7 +54,7 @@
             <p class="mt-4">Technical Details: <span class="font-mono">{error}</span></p>
         </div>
     {:else if weatherData}
-        <XWeather weather={weatherData} bind:useLightText />
+        <XWeather weather={weatherData} useLightText />
     {/if}
 
     <XSettings open={settingsOpen} useLightText />

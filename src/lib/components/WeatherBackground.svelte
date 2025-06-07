@@ -9,7 +9,7 @@
         useLightText: boolean;
     }
 
-    let { code = $bindable<number | undefined>(), isDay = $bindable<boolean>(), useLightText = $bindable<boolean>() }: Props = $props();
+    let { code, isDay, useLightText = $bindable<boolean>() }: Props = $props();
     const theme = $derived(getContext<() => string>("bgTheme")());
 
     let bgClass = $state("");

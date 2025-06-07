@@ -8,7 +8,7 @@
         useLightText: boolean;
     }
 
-    const { weather, useLightText = $bindable<boolean>() }: Props = $props();
+    const { weather, useLightText }: Props = $props();
 
     const formatDate = (date: string): string => {
         const d = new Date(date);
