@@ -76,8 +76,8 @@
                 <span>{weather.current.time}</span>
             </div>
         </div>
-        <div class="p-12">
-            <div class="rounded-lg p-6 w-96">
+        <div class="lg:max-w-1/2 lg:p-12 lg:mt-0 mt-6">
+            <div class="flex flex-col justify-center rounded-lg lg:p-6">
                 {#each Object.entries(weather.daily) as [date, timeGroup]}
                     <div class="flex justify-between items-center">
                         <p class="font-bold">{formatDate(date)}</p>
