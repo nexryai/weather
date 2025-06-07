@@ -72,18 +72,6 @@ interface DailyUnits {
     sunshine_duration: string;
 }
 
-interface DailyDataPoint {
-    weather_code: number; // WMO code
-    sunrise: string; // ISO8601 datetime string
-    sunset: string; // ISO8601 datetime string
-    uv_index_max: number;
-    uv_index_clear_sky_max: number;
-    temperature_2m_max: number;
-    temperature_2m_min: number;
-    daylight_duration: number;
-    sunshine_duration: number;
-}
-
 interface DailySummaryDataPoint {
     weather_code: number; // WMO code
     temperature_2m_max: number;
@@ -98,14 +86,24 @@ interface DailySummaryDataPoint {
 // Type for the inner object of daily_summary, where keys are time strings (e.g., "00:00", "09:00")
 type DailySummaryTimeGroup = Record<string, DailySummaryDataPoint>;
 
+interface DailyDataPoint {
+    weather_code: number; // WMO code
+    sunrise: string; // ISO8601 datetime string
+    sunset: string; // ISO8601 datetime string
+    uv_index_max: number;
+    uv_index_clear_sky_max: number;
+    temperature_2m_max: number;
+    temperature_2m_min: number;
+    daylight_duration: number;
+    sunshine_duration: number;
+    summary: DailySummaryTimeGroup;
+}
+
 // Type for the hourly data, where keys are ISO8601 datetime strings
 type HourlyData = Record<string, HourlyDataPoint>;
 
 // Type for the daily data, where keys are ISO8601 date strings
 type DailyData = Record<string, DailyDataPoint>;
-
-// Type for the daily_summary, where keys are ISO8601 date strings
-type DailySummary = Record<string, DailySummaryTimeGroup>;
 
 export interface WeatherData {
     latitude: number;
@@ -121,5 +119,4 @@ export interface WeatherData {
     hourly: HourlyData;
     daily_units: DailyUnits;
     daily: DailyData;
-    daily_summary: DailySummary;
 }
