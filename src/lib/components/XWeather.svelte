@@ -92,11 +92,11 @@
                                 <div class="w-14 h-14 flex items-center justify-center">
                                     <WeatherIcon code={summary.weather_code} isDay={true} size={48} />
                                 </div>
-                                {#if Object.entries(timeGroup).length !== 1}
+                                {#if Object.entries(timeGroup.summary).length !== 1}
                                     <span class="font-semibold">{formatTime(time)}</span>
                                 {/if}
                             </div>
-                            {#if i < Object.entries(timeGroup).length - 1}
+                            {#if i < Object.entries(timeGroup.summary).length - 1}
                                 <span class="mt-2 mx-2 text-gray-500 text-3xl">→</span>
                             {/if}
                         {/each}
