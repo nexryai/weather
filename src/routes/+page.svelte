@@ -23,7 +23,7 @@
     let pulling = $state(false);
     let pullDistance = $state(0);
     let refreshing = $state(false);
-    const PULL_THRESHOLD = 60;
+    const PULL_THRESHOLD = 240;
 
     const fetchWeather = async() => {
         error = null;
@@ -43,12 +43,6 @@
             isLoading = false;
         }
     };
-
-    onMount(async () => {
-        isLoading = true;
-        await fetchWeather();
-        isLoading = false;
-    });
 
     const handleTouchStart = (e: TouchEvent) => {
         if (window.scrollY === 0) {
@@ -89,6 +83,32 @@
             }
         }, 10);
     };
+
+    let atBottom = $state(false);
+
+    const handleScroll = () => {
+        const el = document.scrollingElement || document.documentElement;
+        // 2pxの誤差を許容
+        if (el.scrollHeight - el.scrollTop - el.clientHeight < 2) {
+            if (!atBottom) {
+                atBottom = true;
+                window.setTimeout(() => {
+                    atBottom = false;
+                }, 400);
+            }
+        } else {
+            atBottom = false;
+        }
+    };
+
+    onMount(async () => {
+        isLoading = true;
+        await fetchWeather();
+        isLoading = false;
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    });
 </script>
 
 <div
@@ -131,10 +151,22 @@
             <p class="mt-4">Technical Details: <span class="font-mono">{error}</span></p>
         </div>
     {:else if weatherData}
-        <div style="margin-top: {pulling ? pullDistance / 2 : 0}px;">
+        <div style="margin-top: {pulling ? pullDistance / 2 : 0}px;" class:animate-shake={atBottom}>
             <XWeather weather={weatherData} useLightText />
         </div>
     {/if}
 
     <XSettings open={settingsOpen} useLightText />
 </div>
+
+<style>
+    @keyframes shake {
+      10%, 90% { transform: translateX(-1px); }
+      20%, 80% { transform: translateX(2px); }
+      30%, 50%, 70% { transform: translateX(-4px); }
+      40%, 60% { transform: translateX(4px); }
+    }
+    .animate-shake {
+      animation: shake 0.4s;
+    }
+</style>
