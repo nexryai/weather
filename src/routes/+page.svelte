@@ -43,7 +43,7 @@
         onclick={() => settingsOpen = !settingsOpen}
         aria-label="Open Settings"
     ></button>
-    <WeatherBackground code={weatherData?.current.weather_code || undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
+    <WeatherBackground code={weatherData?.current.weather_code ?? undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
     {#if isLoading}
         <div class="flex items-center justify-center h-screen w-full text-center">
             <p>Loading...</p>
