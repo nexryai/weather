@@ -369,6 +369,9 @@
     };
 
     const icon = $derived(icons[code]?.[isDay ? "day" : "night"] ?? fallback);
+
+    // fluentアイコンがやたら大きいので縮小
+    const iconSize = $derived(theme === "fluent" ? ((size || 64) / 2) + 5 : size || 64);
 </script>
 
 {#key icon}
@@ -378,7 +381,7 @@
         alt={icon.description}
         title={icon.description}
         class="inline-block align-middle"
-        width="{size || 64}"
-        height="{size || 64}"
+        width={iconSize}
+        height={iconSize}
     />
 {/key}
