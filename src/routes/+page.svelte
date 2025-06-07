@@ -25,7 +25,7 @@
     let refreshing = $state(false);
     const PULL_THRESHOLD = 60;
 
-    async function fetchWeather() {
+    const fetchWeather = async() => {
         error = null;
         try {
             const resp = await fetch("https://skyflame.nexryai.workers.dev/v1/overview?withDailySummary=true");
@@ -42,7 +42,7 @@
         } finally {
             isLoading = false;
         }
-    }
+    };
 
     onMount(async () => {
         isLoading = true;
@@ -50,24 +50,24 @@
         isLoading = false;
     });
 
-    function handleTouchStart(e: TouchEvent) {
+    const handleTouchStart = (e: TouchEvent) => {
         if (window.scrollY === 0) {
             pulling = true;
             touchStartY = e.touches[0].clientY;
             pullDistance = 0;
         }
-    }
+    };
 
-    function handleTouchMove(e: TouchEvent) {
+    const handleTouchMove = (e: TouchEvent) => {
         if (!pulling) return;
         touchCurrentY = e.touches[0].clientY;
         pullDistance = Math.max(0, touchCurrentY - touchStartY);
         if (pullDistance > 0) {
             e.preventDefault();
         }
-    }
+    };
 
-    async function handleTouchEnd() {
+    const handleTouchEnd = async() => {
         if (pulling && pullDistance > PULL_THRESHOLD) {
             refreshing = true;
             // 一瞬でロードが終わると不自然なので最低0.5秒待つ
@@ -86,7 +86,7 @@
                 pullDistance -= 25;
             }
         }, 10);
-    }
+    };
 </script>
 
 <div
