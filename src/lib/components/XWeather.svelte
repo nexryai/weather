@@ -33,7 +33,7 @@
                 <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
             </div>
 
-            <div class="mt-32 flex flex-wrap gap-x-8 gap-y-4">
+            <div class="mt-32 flex flex-wrap justify-center gap-x-8 gap-y-4">
                 <div class="flex items-center">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunrise.svg" alt="Sunrise Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
