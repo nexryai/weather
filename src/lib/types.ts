@@ -36,6 +36,7 @@ interface CurrentWeather {
     cloud_cover: number;
     snowfall: number;
     showers: number;
+    beaufort_wind_scale: number; // Beaufort scale value
 }
 
 interface HourlyUnits {
