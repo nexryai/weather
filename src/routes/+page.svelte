@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, setContext } from "svelte";
+    import { onDestroy, onMount, setContext } from "svelte";
 
     import WeatherBackground from "$lib/components/WeatherBackground.svelte";
     import XSettings from "$lib/components/XSettings.svelte";
@@ -107,7 +107,10 @@
         isLoading = false;
 
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+    });
+
+    onDestroy(() => {
+        window.removeEventListener("scroll", handleScroll);
     });
 </script>
 
