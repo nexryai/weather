@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="lg:p-12 lg:mt-0 mt-6">
+        <div class="lg:w-2/5 lg:p-12 lg:mt-0 mt-6">
             <div class="flex flex-col justify-center rounded-lg lg:p-6">
                 {#each Object.entries(weather.daily).slice(1) as [date, timeGroup]}
                     <div class="flex justify-between items-center">
