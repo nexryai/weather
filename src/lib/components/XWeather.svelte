@@ -114,7 +114,7 @@
                         <p class="font-bold">{formatDate(date)}</p>
                         <div>
                             <span class="font-semibold">
-                                {Math.round(weather.daily[date].temperature_2m_max)} {weather.current_units.temperature_2m} / {Math.round(weather.daily[date].temperature_2m_min)} {weather.current_units.temperature_2m}
+                                {Math.round(weather.daily[date].temperature_2m_min)} {weather.current_units.temperature_2m} / {Math.round(weather.daily[date].temperature_2m_max)} {weather.current_units.temperature_2m}
                             </span>
                         </div>
                     </div>
