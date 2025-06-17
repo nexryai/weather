@@ -23,7 +23,7 @@
     };
 
 </script>
-<div class="w-full md:px-16 mt-8 p-6 flex flex-col lg:flex-row lg:justify-between" class:text-white={useLightText}>
+<div class="w-full md:px-16 mt-8 lg:p-6 p-3 flex flex-col lg:flex-row lg:justify-between" class:text-white={useLightText}>
     {#if weather}
         <div class="lg:w-3/5">
             <div class="mt-16 flex justify-between items-center">
@@ -52,7 +52,7 @@
                                 <WeatherIcon code={data.weather_code} isDay={true} size={48} />
                             </div>
                             <span class="font-semibold">{formatTime(hour)}</span>
-                            <span class="text-xs font-semibold">{Math.round(data.temperature_2m)} {weather.hourly_units.temperature_2m}</span>
+                            <span class="text-xs font-semibold">{data.temperature_2m} {weather.hourly_units.temperature_2m}</span>
                             <span class="text-xs font-semibold">{data.precipitation} {weather.hourly_units.precipitation}</span>
                         </div>
                         {#if i < Object.entries(weather.hourly).slice(0, 24).length - 1}
@@ -68,12 +68,12 @@
                     <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
                 </div>
                 <div class="flex items-center">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunset.svg" alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunset)}</span>
+                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${weather.daily[todayKey].uv_index_max}.svg`} alt="Sunset Icon" class="w-16 h-16" />
+                    <span class="text-md font-semibold ml-2">UV Index: {weather.daily[todayKey].uv_index_max}</span>
                 </div>
                 <div class="flex items-center">
-                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${Math.round(weather.daily[todayKey].uv_index_max)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
-                    <span class="text-md font-semibold ml-2">UV Index: {weather.daily[todayKey].uv_index_max}</span>
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunset.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <span class="text-md font-semibold ml-2">{formatTime(weather.daily[todayKey].sunset)}</span>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
                         <p class="font-bold">{formatDate(date)}</p>
                         <div>
                             <span class="font-semibold">
-                                {Math.round(weather.daily[date].temperature_2m_min)} {weather.current_units.temperature_2m} / {Math.round(weather.daily[date].temperature_2m_max)} {weather.current_units.temperature_2m}
+                                {weather.daily[date].temperature_2m_min} {weather.current_units.temperature_2m} / {weather.daily[date].temperature_2m_max} {weather.current_units.temperature_2m}
                             </span>
                         </div>
                     </div>
