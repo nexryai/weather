@@ -23,7 +23,7 @@
     };
 
 </script>
-<div class="w-full px-16 mt-8 p-6 flex flex-col lg:flex-row lg:justify-between" class:text-white={useLightText}>
+<div class="w-full md:px-16 mt-8 p-6 flex flex-col lg:flex-row lg:justify-between" class:text-white={useLightText}>
     {#if weather}
         <div class="lg:w-3/5">
             <div class="mt-16 flex justify-between items-center">
