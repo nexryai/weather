@@ -134,6 +134,10 @@
     {:else if weatherData}
         <div style="margin-top: {pulling ? pullDistance / 2 : 0}px;">
             <XWeather weather={weatherData} useLightText />
+            <div class="w-full md:px-16 mt-8 lg:p-6 p-3 text-sm text-center text-gray-200">
+                <p>©2025 nexryai All rights reserved.</p>
+                <p>Weather data: OpenMeteo, Geometry data: OpenStreetMap (openstreetmap.org)</p>
+            </div>
         </div>
     {/if}
 
