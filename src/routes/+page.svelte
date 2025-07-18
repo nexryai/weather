@@ -2,7 +2,6 @@
     import { onMount, setContext } from "svelte";
 
     import WeatherBackground from "$lib/components/WeatherBackground.svelte";
-    import XSettings from "$lib/components/XSettings.svelte";
     import XWeather from "$lib/components/XWeather.svelte";
     import type { WeatherData } from "$lib/types";
 
@@ -10,7 +9,6 @@
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
     let useLightText = $state(false);
-    let settingsOpen = $state(false);
     let iconTheme = $state("fluent");
     let backgroundTheme = $state("unsplash1");
 
@@ -118,7 +116,6 @@
     {/if}
     <button
         class="fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none"
-        onclick={() => settingsOpen = !settingsOpen}
         aria-label="Open Settings"
     ></button>
     <WeatherBackground code={weatherData?.current.weather_code ?? undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
@@ -140,6 +137,4 @@
             </div>
         </div>
     {/if}
-
-    <XSettings open={settingsOpen} useLightText />
 </div>

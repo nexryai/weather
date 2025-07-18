@@ -2,6 +2,9 @@
     import type { WeatherData } from "$lib/types";
 
     import WeatherIcon from "./WeatherIcon.svelte";
+    import XSettings from "./XSettings.svelte";
+
+    let settingsOpen = $state(false);
 
     interface Props {
         weather: WeatherData;
@@ -26,21 +29,23 @@
 
 </script>
 <div class="w-full md:px-16 mt-8 lg:p-6 p-3" class:text-white={useLightText}>
-    <div class="mt-16 mb-14 flex justify-between items-center">
+    <div class="absolute top-4 left-4 flex flex-col items-end">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="mr-1 icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
+            <span class="text-sm font-semibold max-w-64 overflow-hidden text-nowrap text-ellipsis">{weather.latitude}, {weather.longitude}</span>
+            <button aria-label="open settings" class="ml-2 cursor-pointer hover:bg-gray-300/30 rounded" onclick={() => settingsOpen = !settingsOpen}>
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+            </button>
+        </div>
+    </div>
+    <div class="absolute top-14 left-4 w-128 h-128">
+        <XSettings open={settingsOpen} useLightText={useLightText} />
+    </div>
+
+    <div class="mt-16 mb-14 flex justify-between items-center max-w-[380px]">
         <div class="flex items-center">
             <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1 ? true : false} />
             <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
-        </div>
-        <div class="flex flex-col items-end">
-            <div>
-                <span class="font-semibold">{weather.daily[todayKey].temperature_2m_min} {weather.daily_units.temperature_2m_min}</span>
-                <span class="mx-2">/</span>
-                <span class="font-bold">{weather.daily[todayKey].temperature_2m_max} {weather.daily_units.temperature_2m_max}</span>
-            </div>
-            <div class="flex items-center mt-2">
-                <svg xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="mr-1 icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
-                <span class="text-sm font-semibold">{weather.latitude}, {weather.longitude}</span>
-            </div>
         </div>
     </div>
     <div class="flex flex-col lg:flex-row lg:justify-between">
