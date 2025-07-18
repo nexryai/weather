@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { fly } from "svelte/transition";
+
     interface Props {
         open: boolean;
         useLightText: boolean;
@@ -10,9 +12,9 @@
 
 {#if open}
     <div class="rounded">
-        <div id="app-bg" class="backdrop-blur-2xl rounded-2xl"></div>
-        <div id="background-l-noise" class="rounded-2xl"></div>
-        <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12" class:text-gray-200={useLightText}>
+        <div id="app-bg" class="backdrop-blur-2xl rounded-2xl" transition:fly={{ duration: 300, x: 0, y: -300 }}></div>
+        <div id="background-l-noise" class="rounded-2xl" transition:fly={{ duration: 300, x: 0, y: -300 }}></div>
+        <div id="app-modal" transition:fly={{ duration: 300, x: 0, y: -300 }} class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12" class:text-gray-200={useLightText}>
             <div class="flex justify-between items-center mb-8">
                 <h3 class="text-3xl">Settings</h3>
                 <button aria-label="Close Settings" class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick={() => open = false}>

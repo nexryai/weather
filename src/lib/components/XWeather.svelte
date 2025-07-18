@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="absolute top-14 left-4 w-128 h-128">
-        <XSettings open={settingsOpen} useLightText={useLightText} />
+        <XSettings open={settingsOpen} useLightText={useLightText}/>
     </div>
 
     <div class="mt-16 mb-14 flex justify-between items-center max-w-[380px]">
