@@ -12,6 +12,8 @@
 
     const todayKey = Object.keys(weather.daily)[0];
 
+    const currentHour = new Date(weather.current.time).getHours();
+
     const formatDate = (date: string): string => {
         const d = new Date(date);
         return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -45,7 +47,7 @@
         <div class="lg:w-3/5">
             <div class="mt-12 flex flex-wrap justify-center">
                 <div class="flex mb-8 overflow-scroll p-2 bg-gray-100/20 rounded-xl">
-                    {#each Object.entries(weather.hourly).slice(0, 24) as [hour, data], i (hour)}
+                    {#each Object.entries(weather.hourly).slice(currentHour, currentHour + 24) as [hour, data], i (hour)}
                         <div class="flex flex-col justify-center items-center mx-2">
                             <div class="w-14 h-14 flex items-center justify-center">
                                 <WeatherIcon code={data.weather_code} isDay={true} size={48} />
@@ -54,7 +56,7 @@
                             <span class="text-xs font-semibold">{data.temperature_2m} {weather.hourly_units.temperature_2m}</span>
                             <span class="text-xs font-semibold">{data.precipitation} {weather.hourly_units.precipitation}</span>
                         </div>
-                        {#if i < Object.entries(weather.hourly).slice(0, 24).length - 1}
+                        {#if i < Object.entries(weather.hourly).slice(currentHour, currentHour + 24).length - 1}
                             <span class="mt-2 mx-2 text-gray-500 text-3xl">→</span>
                         {/if}
                     {/each}
@@ -108,7 +110,7 @@
         </div>
         <div class="lg:w-2/5 lg:p-12 p-3 lg:mt-0 mt-6">
             <div class="flex flex-col justify-center p-3 px-4 lg:p-6 bg-gray-100/20 rounded-xl">
-                {#each Object.entries(weather.daily).slice(1) as [date, timeGroup]}
+                {#each Object.entries(weather.daily) as [date, timeGroup]}
                     <div class="flex justify-between items-center">
                         <p class="font-bold">{formatDate(date)}</p>
                         <div>
