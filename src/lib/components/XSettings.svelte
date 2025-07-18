@@ -35,7 +35,7 @@
                 <div class="flex flex-col justify-center items-center mt-4">
                     {#if isNotSearchedYet}
                         <img src={undrawLocationTracking} alt="Location Tracking" class="w-42 mt-4" />
-                        <p class="text-gray-500 mt-6 mx-auto">入力して検索開始</p>
+                        <p class="text-gray-400 mt-6 mx-auto">入力して検索開始</p>
                     {:else if noResult}
                         <img src={undrawLocationNotFound} alt="Location Not Found" class="w-42 mt-4" />
                         <p class="text-gray-400 mt-6">該当する場所が見つかりませんでした</p>
