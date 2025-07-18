@@ -17,7 +17,7 @@
         <div id="app-modal" transition:fly={{ duration: 300, x: 0, y: -300 }} class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12" class:text-gray-200={useLightText}>
             <div class="flex justify-between items-center mb-8">
                 <h3 class="text-3xl">Settings</h3>
-                <button aria-label="Close Settings" class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick={() => open = false}>
+                <button aria-label="Close Settings" class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick={() => open = !open}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
