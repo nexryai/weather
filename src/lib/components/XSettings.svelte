@@ -1,6 +1,13 @@
 <script lang="ts">
     import { fly } from "svelte/transition";
 
+    import undrawLocationNotFound from "$lib/images/undrawAdventure.svg";
+    import undrawLocationTracking from "$lib/images/undrawLocationTracking.svg";
+
+    let cityName = $state<string>("");
+    let isNotSearchedYet = $state<boolean>(true);
+    let noResult = $state<boolean>(false);
+
     interface Props {
         open: boolean;
         useLightText: boolean;
@@ -11,19 +18,32 @@
 </script>
 
 {#if open}
-    <div class="rounded">
+    <div>
         <div id="app-bg" class="backdrop-blur-2xl rounded-2xl" transition:fly={{ duration: 300, x: 0, y: -300 }}></div>
         <div id="background-l-noise" class="rounded-2xl" transition:fly={{ duration: 300, x: 0, y: -300 }}></div>
-        <div id="app-modal" transition:fly={{ duration: 300, x: 0, y: -300 }} class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12" class:text-gray-200={useLightText}>
+        <div id="app-modal" transition:fly={{ duration: 300, x: 0, y: -300 }} class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12 shadow-lg" class:text-gray-200={useLightText}>
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl">Settings</h3>
-                <button aria-label="Close Settings" class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick={() => open = !open}>
+                <h3 class="text-3xl">Location</h3>
+                <button aria-label="Close Settings" class="text-gray-200 hover:text-gray-300 focus:outline-none" onclick={() => open = !open}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-
+            <div class="flex flex-col justify-center">
+                <input type="text" placeholder="出発地を入力" bind:value={cityName} class="w-full p-2 border-b border-gray-300 focus:border-black focus:outline-none" />
+                <div class="flex flex-col justify-center items-center mt-4">
+                    {#if isNotSearchedYet}
+                        <img src={undrawLocationTracking} alt="Location Tracking" class="w-42 mt-4" />
+                        <p class="text-gray-500 mt-6 mx-auto">入力して検索開始</p>
+                    {:else if noResult}
+                        <img src={undrawLocationNotFound} alt="Location Not Found" class="w-42 mt-4" />
+                        <p class="text-gray-400 mt-6">該当する場所が見つかりませんでした</p>
+                    {:else}
+                        <p class="text-gray-500 mt-2">検索結果が見つかりました</p>
+                    {/if}
+                </div>
+            </div>
         </div>
     </div>
 {/if}
