@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { fly } from "svelte/transition";
+
     import type { WeatherData } from "$lib/types";
 
     import WeatherIcon from "./WeatherIcon.svelte";
@@ -38,20 +40,22 @@
             </div>
         </button>
     </div>
-    <div class="absolute top-14 left-4 w-full sm:w-128 h-128">
-        <XSettings bind:open={settingsOpen} useLightText={useLightText}/>
-    </div>
+    {#if settingsOpen}
+        <div class="absolute top-14 left-4 w-full sm:w-128 h-128" transition:fly={{ duration: 300, x: 0, y: -300 }} >
+            <XSettings useLightText={useLightText}/>
+        </div>
+    {/if}
 
     <div class="mt-16 mb-14 flex justify-between items-center max-w-[380px]">
         <div class="flex items-center">
-            <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1 ? true : false} />
+            <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1} />
             <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
         </div>
     </div>
     <div class="flex flex-col lg:flex-row lg:justify-between">
         <div class="lg:w-3/5">
-            <div class="mt-12 flex flex-wrap justify-center">
-                <div class="flex mb-8 overflow-scroll p-2 bg-gray-100/20 rounded-xl">
+            <div class="mt-12 flex flex-wrap justify-center bg-gray-100/20 rounded-xl mb-8">
+                <div class="flex overflow-x-scroll p-2 scroll-container">
                     {#each Object.entries(weather.hourly).slice(currentHour, currentHour + 24) as [hour, data], i (hour)}
                         <div class="flex flex-col justify-center items-center mx-2">
                             <div class="w-14 h-14 flex items-center justify-center">
@@ -124,7 +128,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex justify-center-safe mb-8 overflow-scroll" class:single="{Object.entries(timeGroup).length === 1}">
+                    <div class="flex justify-center-safe mb-8 overflow-x-scroll scroll-container" class:single="{Object.entries(timeGroup).length === 1}">
                         {#each Object.entries(timeGroup.summary) as [time, summary], i (time)}
                             <div class="flex flex-col justify-center items-center mx-2">
                                 <div class="w-14 h-14 flex items-center justify-center">
@@ -149,5 +153,10 @@
     .selected-bg {
         /*SvelteのDynamic classに"/"が使用できないため*/
         background-color: color-mix(in oklab, var(--color-gray-300) 30%, transparent)
+    }
+
+    .scroll-container {
+        scrollbar-width: thin;
+        scrollbar-color: #c0c0c0 #ffffff00;
     }
 </style>
