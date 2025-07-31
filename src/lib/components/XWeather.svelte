@@ -28,8 +28,8 @@
         const d = new Date(time);
         return d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
     };
-
 </script>
+
 <div class="w-full md:px-16 mt-8 lg:p-6 p-3" class:text-white={useLightText}>
     <div class="absolute top-4 left-4 flex flex-col items-end">
         <button class="flex items-center p-1 hover:bg-gray-300/30 cursor-pointer rounded" aria-label="open settings" onclick={() => settingsOpen = !settingsOpen} class:selected-bg={settingsOpen}>
