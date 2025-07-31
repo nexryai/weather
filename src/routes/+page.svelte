@@ -114,10 +114,6 @@
             </p>
         </div>
     {/if}
-    <button
-        class="fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none"
-        aria-label="Open Settings"
-    ></button>
     <WeatherBackground code={weatherData?.current.weather_code ?? undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
     {#if isLoading}
         <div class="flex items-center justify-center h-screen w-full text-center">
