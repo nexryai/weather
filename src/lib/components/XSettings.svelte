@@ -18,15 +18,18 @@
 
     let { useLightText = $bindable<boolean>() }: Props = $props();
 
+    // backdropのblurがtransition中は効かないので違和感をなくすためのエフェクト
     onMount(() => {
-        setTimeout(() => showModal = true, 300);
+        setTimeout(() => showModal = true, 350);
     });
 </script>
 
 
 <div>
     {#if showModal}
-        <div id="app-bg" class="backdrop-blur-2xl rounded-2xl" transition:fade={{duration: 100}}></div>
+        <div id="app-bg" class="backdrop-blur-2xl rounded-2xl"></div>
+    {:else }
+        <div id="app-bg" class="bg-gray-400 rounded-2xl" transition:fade={{duration: 100}}></div>
     {/if}
     <div id="background-l-noise" class="rounded-2xl"></div>
     <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12 shadow-lg" class:text-gray-200={useLightText}>
