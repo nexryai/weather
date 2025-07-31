@@ -78,7 +78,7 @@
                     <span class="text-md font-semibold sm:ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col">
-                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${weather.daily[todayKey].uv_index_max}.svg`} alt="Sunset Icon" class="w-12 h-12" />
+                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/uv-index-${weather.daily[todayKey].uv_index_max}.svg`} alt="UV index Icon" class="w-12 h-12" />
                     <span class="text-md font-semibold sm:ml-2">UV Index: {weather.daily[todayKey].uv_index_max}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col">
@@ -92,27 +92,27 @@
             </div>
             <div class="mt-2 flex flex-wrap justify-center gap-x-8 gap-y-4">
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/thermometer-raindrop.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/thermometer-raindrop.svg" alt="Humidity Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2">{weather.current.relative_humidity_2m} {weather.current_units.relative_humidity_2m}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/barometer.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/barometer.svg" alt="Barometer Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2"> {weather.current.surface_pressure} {weather.current_units.surface_pressure}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/windsock.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/windsock.svg" alt="Windsock Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2">{weather.current.wind_direction_10m}{weather.current_units.wind_direction_10m} {weather.current.wind_speed_10m} {weather.current_units.wind_speed_10m}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind.svg" alt="Wind Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2"> {weather.current.wind_gusts_10m} {weather.current_units.wind_gusts_10m}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/raindrop-measure.svg" alt="Sunset Icon" class="w-16 h-16" />
+                    <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/raindrop-measure.svg" alt="Precipitation Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2"> {weather.current.precipitation} {weather.current_units.precipitation}</span>
                 </div>
                 <div class="flex items-center sm:flex-row flex-col bg-gray-100/20 rounded-xl p-2 w-48">
-                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind-beaufort-${Math.min(weather.current.beaufort_wind_scale, 12)}.svg`} alt="Sunset Icon" class="w-16 h-16" />
+                    <img src={`https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/wind-beaufort-${Math.min(weather.current.beaufort_wind_scale, 12)}.svg`} alt="Wind Icon" class="w-16 h-16" />
                     <span class="text-md font-semibold sm:ml-2">Beaufort Scale: {weather.current.beaufort_wind_scale}</span>
                 </div>
             </div>
