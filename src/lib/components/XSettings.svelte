@@ -1,7 +1,13 @@
 <script lang="ts">
+    import {onMount} from "svelte";
+
+    import { fade } from "svelte/transition";
+
     import undrawLocationNotFound from "$lib/images/undrawAdventure.svg";
     import undrawLocationTracking from "$lib/images/undrawLocationTracking.svg";
 
+
+    let showModal = $state(false);
     let cityName = $state<string>("");
     let isNotSearchedYet = $state<boolean>(true);
     let noResult = $state<boolean>(false);
@@ -12,11 +18,17 @@
 
     let { useLightText = $bindable<boolean>() }: Props = $props();
 
+    onMount(() => {
+        setTimeout(() => showModal = true, 400);
+    });
+
 </script>
 
 
 <div>
-    <div id="app-bg" class="backdrop-blur-2xl rounded-2xl"></div>
+    {#if showModal}
+        <div id="app-bg" class="backdrop-blur-2xl rounded-2xl" transition:fade={{duration: 100}}></div>
+    {/if}
     <div id="background-l-noise" class="rounded-2xl"></div>
     <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12 shadow-lg" class:text-gray-200={useLightText}>
         <div class="flex justify-between items-center mb-8">
