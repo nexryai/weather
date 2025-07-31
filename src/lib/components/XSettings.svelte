@@ -19,9 +19,8 @@
     let { useLightText = $bindable<boolean>() }: Props = $props();
 
     onMount(() => {
-        setTimeout(() => showModal = true, 400);
+        setTimeout(() => showModal = true, 300);
     });
-
 </script>
 
 
