@@ -16,8 +16,9 @@
     const { weather, useLightText }: Props = $props();
 
     const todayKey = Object.keys(weather.daily)[0];
-
     const currentHour = new Date(weather.current.time).getHours();
+    const sunriseDate = new Date(weather.daily[todayKey].sunrise);
+    const sunsetDate = new Date(weather.daily[todayKey].sunset);
 
     const formatDate = (date: string): string => {
         const d = new Date(date);
@@ -27,6 +28,19 @@
     const formatTime = (time: string): string => {
         const d = new Date(time);
         return d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    };
+
+    // ToDo: 将来的にはAPI側で全ての項目にisDayプロパティーを付与する
+    const getTimeInDayMs = (date: Date): number => {
+        return date.getHours() * 3600000 + date.getMinutes() * 60000 + date.getSeconds() * 1000;
+    };
+
+    const sunriseMs = getTimeInDayMs(sunriseDate);
+    const sunsetMs = getTimeInDayMs(sunsetDate);
+
+    const isDay = (currentTime: string): boolean => {
+        const now = getTimeInDayMs(new Date(currentTime));
+        return now >= sunriseMs && now <= sunsetMs;
     };
 </script>
 
@@ -59,7 +73,7 @@
                     {#each Object.entries(weather.hourly).slice(currentHour, currentHour + 24) as [hour, data], i (hour)}
                         <div class="flex flex-col justify-center items-center mx-2">
                             <div class="w-14 h-14 flex items-center justify-center">
-                                <WeatherIcon code={data.weather_code} isDay={true} size={48} />
+                                <WeatherIcon code={data.weather_code} isDay={isDay(hour)} size={48} />
                             </div>
                             <span class="font-semibold">{formatTime(hour)}</span>
                             <span class="text-xs font-semibold">{data.temperature_2m} {weather.hourly_units.temperature_2m}</span>
