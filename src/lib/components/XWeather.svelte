@@ -140,7 +140,7 @@
         </div>
         <div class="lg:w-2/5 lg:p-12 p-3 lg:mt-0 mt-6">
             <div class="flex flex-col justify-center p-3 px-4 lg:p-6 bg-gray-50 rounded-xl">
-                {#each Object.entries(weather.daily) as [date, timeGroup]}
+                {#each Object.entries(weather.daily).slice(0, 5) as [date, timeGroup]}
                     <div class="flex justify-between items-center">
                         <p>{formatDate(date)}</p>
                         <div>
