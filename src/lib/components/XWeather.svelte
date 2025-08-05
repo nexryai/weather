@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="mt-4 sm:mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4 bg-gray-50 rounded-xl">
+            <div class="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-4 bg-gray-50 rounded-xl">
                 <div class="flex items-center sm:flex-row flex-col">
                     <img src="https://raw.githubusercontent.com/basmilius/weather-icons/refs/heads/dev/production/fill/svg-static/sunrise.svg" alt="Sunrise Icon" class="w-12 h-12" />
                     <span class="text-md font-semibold sm:ml-2">{formatTime(weather.daily[todayKey].sunrise)}</span>
@@ -108,7 +108,11 @@
                 </div>
             </div>
 
-            <div class="mt-16 sm:mt-32 pb-4">
+            <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 bg-gray-50 rounded-xl">
+                <p class="p-8 text-gray-500">警報/注意報の取得に失敗しました。</p>
+            </div>
+
+            <div class="mt-16 pb-4">
                 <span class="m-4 font-semibold text-md">{formatTime(weather.current.time)} 現在</span>
             </div>
             <div class="mt-2 flex flex-wrap justify-center gap-x-8 gap-y-4">
