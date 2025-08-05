@@ -1,14 +1,12 @@
 <script lang="ts">
     import { onMount, setContext } from "svelte";
 
-    import WeatherBackground from "$lib/components/WeatherBackground.svelte";
     import XWeather from "$lib/components/XWeather.svelte";
     import type { WeatherData } from "$lib/types";
 
     let isLoading = $state(true);
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
-    let useLightText = $state(false);
     let iconTheme = $state("fluent");
     let backgroundTheme = $state("unsplash1");
 
@@ -94,11 +92,11 @@
     ontouchstart={handleTouchStart}
     ontouchmove={handleTouchMove}
     ontouchend={handleTouchEnd}
-    class="min-h-screen"
+    class="min-h-screen bg-gray-100"
     style="touch-action: pan-y;"
 >
     {#if pulling && pullDistance > 2}
-        <div class="fixed top-0 left-0 w-full flex flex-col items-center justify-center z-50 text-white" style="height: {pulling ? pullDistance : 0}px">
+        <div class="fixed top-0 left-0 w-full flex flex-col items-center justify-center z-50" style="height: {pulling ? pullDistance : 0}px">
             {#if refreshing}
                 <div class="animate-spin">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-loader-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a9 9 0 1 0 9 9" /></svg>
@@ -114,7 +112,7 @@
             </p>
         </div>
     {/if}
-    <WeatherBackground code={weatherData?.current.weather_code ?? undefined} isDay={weatherData?.current.is_day === 1 ? true : false} bind:useLightText />
+
     {#if isLoading}
         <div class="flex items-center justify-center h-screen w-full text-center">
             <p>Loading...</p>
@@ -127,7 +125,7 @@
     {:else if weatherData}
         <div style="margin-top: {pulling ? pullDistance / 2 : 0}px;">
             <XWeather weather={weatherData} useLightText />
-            <div class="w-full md:px-16 mt-8 lg:p-6 p-3 text-sm text-center text-gray-200">
+            <div class="w-full md:px-16 mt-8 lg:p-6 p-3 text-sm text-center text-gray-400">
                 <p>©2025 nexryai All rights reserved.</p>
                 <p>Weather data: OpenMeteo, Geometry data: OpenStreetMap (openstreetmap.org)</p>
             </div>

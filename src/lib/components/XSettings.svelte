@@ -29,10 +29,10 @@
     {#if showModal}
         <div id="app-bg" class="backdrop-blur-2xl rounded-2xl"></div>
     {:else }
-        <div id="app-bg" class="bg-gray-400 rounded-2xl" transition:fade={{duration: 100}}></div>
+        <div id="app-bg" class="bg-gray-100 rounded-2xl" transition:fade={{duration: 100}}></div>
     {/if}
     <div id="background-l-noise" class="rounded-2xl"></div>
-    <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full text-white p-12 shadow-lg" class:text-gray-200={useLightText}>
+    <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full p-12 shadow-lg">
         <div class="flex justify-between items-center mb-8">
             <h3 class="text-3xl">Location</h3>
             <button aria-label="Close Settings" class="text-gray-200 hover:text-gray-300 focus:outline-none" onclick={() => open = !open}>

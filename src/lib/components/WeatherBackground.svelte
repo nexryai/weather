@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getContext } from "svelte";
+    import { getContext, type Snippet } from "svelte";
 
     import { fade } from "svelte/transition";
 
@@ -7,9 +7,10 @@
         code: number | undefined;
         isDay: boolean;
         useLightText: boolean;
+        children: Snippet<[]>;
     }
 
-    let { code, isDay, useLightText = $bindable<boolean>() }: Props = $props();
+    let { code, isDay, useLightText = $bindable<boolean>(), children }: Props = $props();
     const theme = $derived(getContext<() => string>("bgTheme")());
 
     let bgClass = $state("");
@@ -81,8 +82,8 @@
                 if ([0, 1].includes(code)) {
                     useLightText = true;
                     bgClass = isDay
-                        ? "bg-[url('https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-xl before:content-[''] before:w-full before:h-full before:z-10"
-                        : "bg-[url('https://images.unsplash.com/photo-1442876906995-6761040d1f0b?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-xl before:content-[''] before:w-full before:h-full before:z-10";
+                        ? "rounded-3xl w-full h-full bg-[url('https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]"
+                        : "rounded-3xl w-full h-full bg-[url('https://images.unsplash.com/photo-1442876906995-6761040d1f0b?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]";
 
                     return;
                 }
@@ -90,8 +91,8 @@
                 // Partly Cloudy
                 if (code === 2) {
                     bgClass = isDay
-                        ? "bg-[url('https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-xl before:content-[''] before:w-full before:h-full before:z-10"
-                        : "bg-[url('https://images.unsplash.com/photo-1561394104-0904bad68355?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-2xl before:content-[''] before:w-full before:h-full before:z-10";
+                        ? "rounded-3xl w-full h-full bg-[url('https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-xl before:content-[''] before:w-full before:h-full before:z-10"
+                        : "rounded-3xl w-full h-full bg-[url('https://images.unsplash.com/photo-1561394104-0904bad68355?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] before:absolute before:inset-0 before:backdrop-blur-2xl before:content-[''] before:w-full before:h-full before:z-10";
 
                     return;
                 }
@@ -144,18 +145,15 @@
 </script>
 
 {#key bgClass}
-    <div in:fade={{ duration: 300 }} id="app-bg" class={bgClass}></div>
+    <div in:fade={{ duration: 300 }} id="bg" class={bgClass}>
+        {@render children()}
+    </div>
 {/key}
 
 <style>
-    #app-bg {
-        background-size: cover;
-        background-position: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-    }
+#bg {
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
 </style>
