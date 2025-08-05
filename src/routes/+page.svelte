@@ -8,10 +8,8 @@
     let weatherData: WeatherData | null = $state(null);
     let error: string | null = $state(null);
     let iconTheme = $state("fluent");
-    let backgroundTheme = $state("unsplash1");
 
     setContext("iconTheme", () => iconTheme);
-    setContext("bgTheme", () => backgroundTheme);
 
     // --- Pull to refresh state ---
     let touchStartY = 0;
