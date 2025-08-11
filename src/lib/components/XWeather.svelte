@@ -50,9 +50,6 @@
         <button class="flex items-center p-1 hover:bg-gray-300/30 cursor-pointer rounded" aria-label="open settings" onclick={() => settingsOpen = !settingsOpen} class:selected-bg={settingsOpen}>
             <svg xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="mr-1 icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
             <span class="text-sm font-semibold max-w-64 overflow-hidden text-nowrap text-ellipsis">{weather.latitude}, {weather.longitude}</span>
-            <div class="ml-2">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
-            </div>
         </button>
     </div>
     {#if settingsOpen}
@@ -63,7 +60,7 @@
 
     <div class="rounded-2xl overflow-hidden">
         <WeatherBackground code={weather.current.weather_code ?? undefined} isDay={weather.current.is_day === 1} useLightText={useLightText} >
-            <div class="p-16 mt-16 mb-14 flex justify-between items-center max-w-[380px]">
+            <div class="sm:p-16 py-10 pl-4 mt-16 mb-14 flex justify-between items-center max-w-[380px]">
                 <div class="flex items-center text-white">
                     <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1} />
                     <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
