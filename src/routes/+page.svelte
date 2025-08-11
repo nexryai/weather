@@ -34,7 +34,6 @@
         isLoading = true;
         await fetchWeather();
         isLoading = false;
-
     });
 </script>
 
