@@ -60,7 +60,7 @@
 
     <div class="rounded-2xl overflow-hidden">
         <WeatherBackground code={weather.current.weather_code ?? undefined} isDay={weather.current.is_day === 1} useLightText={useLightText} >
-            <div class="sm:p-16 py-10 pl-4 mt-16 mb-14 flex justify-between items-center max-w-[380px]">
+            <div class="sm:py-16 sm:pl-16 py-10 pl-4 mt-16 mb-14 flex justify-between items-center max-w-[380px]">
                 <div class="flex items-center text-white">
                     <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1} />
                     <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
