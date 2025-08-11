@@ -82,7 +82,7 @@
 
 {#key bgClass}
     <div in:fade={{ duration: 300 }} id="bg" class={`rounded-3xl w-full h-full ${bgClass}`}>
-        <div class="backdrop-blur-2xl rounded-3xl">
+        <div class="backdrop-blur-2xl rounded-3xl h-full">
             {@render children()}
         </div>
     </div>
