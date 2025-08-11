@@ -56,8 +56,8 @@
         </button>
     </div>
     {#if settingsOpen}
-        <div class="absolute top-14 left-4 w-full sm:w-128 h-128" transition:fly={{ duration: 300, x: 0, y: -300 }} >
-            <XSettings useLightText={useLightText}/>
+        <div class="absolute top-14 left-4 w-full sm:w-128 h-128 z-30" transition:fly={{ duration: 300, x: 0, y: -300 }} >
+            <XSettings bind:open={settingsOpen}/>
         </div>
     {/if}
 

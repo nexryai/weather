@@ -13,10 +13,10 @@
     let noResult = $state<boolean>(false);
 
     interface Props {
-        useLightText: boolean;
+        open: boolean;
     }
 
-    let { useLightText = $bindable<boolean>() }: Props = $props();
+    let { open = $bindable<boolean>() }: Props = $props();
 
     // backdropのblurがtransition中は効かないので違和感をなくすためのエフェクト
     onMount(() => {
@@ -29,13 +29,13 @@
     {#if showModal}
         <div id="app-bg" class="backdrop-blur-2xl rounded-2xl"></div>
     {:else }
-        <div id="app-bg" class="bg-gray-100 rounded-2xl" transition:fade={{duration: 100}}></div>
+        <div id="app-bg" class="bg-gray-100 rounded-2xl" transition:fade={{duration: 1500}}></div>
     {/if}
     <div id="background-l-noise" class="rounded-2xl"></div>
     <div id="app-modal" class="absolute rounded-2xl top-0 left-0 w-full h-full p-12 shadow-lg">
         <div class="flex justify-between items-center mb-8">
             <h3 class="text-3xl">Location</h3>
-            <button aria-label="Close Settings" class="text-gray-200 hover:text-gray-300 focus:outline-none" onclick={() => open = !open}>
+            <button aria-label="Close Settings" class="text-gray-700 hover:text-gray-500 focus:outline-none" onclick={() => open = !open}>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
