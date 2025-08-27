@@ -140,7 +140,7 @@
                         {#each Object.entries(timeGroup.summary) as [time, summary], i (time)}
                             <div class="flex flex-col justify-center items-center mx-2">
                                 <div class="w-14 h-14 flex items-center justify-center">
-                                    <WeatherIcon code={summary.weather_code} isDay={true} size={48} />
+                                    <WeatherIcon code={summary.weather_code} isDay={summary.arrow_length === 24 ? true : summary.is_day} size={48} />
                                 </div>
                                 {#if Object.entries(timeGroup.summary).length !== 1}
                                     <span>{formatTime(time)}</span>
