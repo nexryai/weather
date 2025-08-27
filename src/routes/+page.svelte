@@ -15,6 +15,11 @@
     setContext("iconTheme", () => iconTheme);
 </script>
 
+<svelte:head>
+    <title>{data.cityName ? `Weather in ${data.cityName}` : "Weather App"}</title>
+    <meta name="description" content="A simple weather app built with SvelteKit and OpenMeteo API." />
+</svelte:head>
+
 <div
     class="min-h-screen bg-gray-100"
     style="touch-action: pan-y;"
