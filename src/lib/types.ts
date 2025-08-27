@@ -30,7 +30,7 @@ interface CurrentWeather {
     pressure_msl: number;
     surface_pressure: number;
     precipitation: number;
-    is_day: number; // 0 for night, 1 for day
+    is_day: boolean;
     apparent_temperature: number;
     relative_humidity_2m: number;
     cloud_cover: number;
@@ -58,6 +58,7 @@ interface HourlyDataPoint {
     precipitation: number;
     showers: number;
     snowfall: number;
+    is_day: boolean;
 }
 
 interface DailyUnits {

@@ -18,8 +18,6 @@
 
     const todayKey = Object.keys(weather.daily)[0];
     const currentHour = new Date(weather.current.time).getHours();
-    const sunriseDate = new Date(weather.daily[todayKey].sunrise);
-    const sunsetDate = new Date(weather.daily[todayKey].sunset);
 
     const formatDate = (date: string): string => {
         const d = new Date(date);
@@ -29,19 +27,6 @@
     const formatTime = (time: string): string => {
         const d = new Date(time);
         return d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-    };
-
-    // ToDo: 将来的にはAPI側で全ての項目にisDayプロパティーを付与する
-    const getTimeInDayMs = (date: Date): number => {
-        return date.getHours() * 3600000 + date.getMinutes() * 60000 + date.getSeconds() * 1000;
-    };
-
-    const sunriseMs = getTimeInDayMs(sunriseDate);
-    const sunsetMs = getTimeInDayMs(sunsetDate);
-
-    const isDay = (currentTime: string): boolean => {
-        const now = getTimeInDayMs(new Date(currentTime));
-        return now >= sunriseMs && now <= sunsetMs;
     };
 </script>
 
@@ -59,10 +44,10 @@
     {/if}
 
     <div class="rounded-2xl overflow-hidden">
-        <WeatherBackground code={weather.current.weather_code ?? undefined} isDay={weather.current.is_day === 1} useLightText={useLightText} >
+        <WeatherBackground code={weather.current.weather_code ?? undefined} isDay={weather.current.is_day} useLightText={useLightText} >
             <div class="sm:py-16 sm:pl-16 py-10 pl-4 mt-16 mb-14 flex justify-between items-center max-w-[380px]">
                 <div class="flex items-center text-white">
-                    <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day === 1} />
+                    <WeatherIcon size={128} code={weather.current.weather_code} isDay={weather.current.is_day} />
                     <span class="text-4xl font-bold ml-4">{weather.current.temperature_2m} {weather.current_units.temperature_2m}</span>
                 </div>
             </div>
@@ -77,7 +62,7 @@
                     {#each Object.entries(weather.hourly).slice(currentHour, currentHour + 24) as [hour, data], i (hour)}
                         <div class="flex flex-col justify-center items-center mx-2">
                             <div class="w-14 h-14 flex items-center justify-center">
-                                <WeatherIcon code={data.weather_code} isDay={isDay(hour)} size={48} />
+                                <WeatherIcon code={data.weather_code} isDay={data.is_day} size={48} />
                             </div>
                             <span>{formatTime(hour)}</span>
                             <span class="text-xs">{data.temperature_2m} {weather.hourly_units.temperature_2m}</span>
