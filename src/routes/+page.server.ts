@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ request, cookies }) => {
             })(),
             (async () => {
                 const res = await geocodingService.reverseGeocoding(lat.toString(), lon.toString());
-                cityName = res.address.city ?? res.address.town ?? null;
+                cityName = res.address.city ?? res.address.town ?? res.display_name ?? null;
             })()
         ]);
 

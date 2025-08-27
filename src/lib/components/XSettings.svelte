@@ -1,6 +1,7 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
 
+    import type { GeocodingResult } from "skyflame";
     import { fade } from "svelte/transition";
 
     import undrawLocationNotFound from "$lib/images/undrawAdventure.svg";
@@ -10,13 +11,54 @@
     let showModal = $state(false);
     let cityName = $state<string>("");
     let isNotSearchedYet = $state<boolean>(true);
+    let isSearching = $state<boolean>(false);
     let noResult = $state<boolean>(false);
+    let results = $state<GeocodingResult[]>([]);
+    let isReloading = $state<boolean>(false);
 
     interface Props {
         open: boolean;
     }
 
     let { open = $bindable<boolean>() }: Props = $props();
+
+    const setLatAndLon = (lat: number, lon: number) => {
+        document.cookie = `lat=${lat}; path=/; max-age=31536000`; // 1 year
+        document.cookie = `lon=${lon}; path=/; max-age=31536000`;
+    };
+
+    const clearLatAndLon = () => {
+        document.cookie = "lat=; path=/; max-age=0";
+        document.cookie = "lon=; path=/; max-age=0";
+    };
+
+    const getResults = async (query: string) => {
+        if (query.trim() === "") {
+            isNotSearchedYet = true;
+            noResult = false;
+            return;
+        }
+
+        isNotSearchedYet = false;
+        isSearching = true;
+
+        try {
+            const response = await fetch(`/api/geocoding?query=${query}`);
+            const data = await response.json() as GeocodingResult[];
+
+            if (data && data.length > 0) {
+                noResult = false;
+                results = data;
+            } else {
+                noResult = true;
+            }
+        } catch (error) {
+            console.error("エラーが発生しました:", error);
+            noResult = true;
+        } finally {
+            isSearching = false;
+        }
+    };
 
     // backdropのblurがtransition中は効かないので違和感をなくすためのエフェクト
     onMount(() => {
@@ -41,21 +83,64 @@
                 </svg>
             </button>
         </div>
-        <div class="flex flex-col justify-center">
-            <input type="text" placeholder="出発地を入力" bind:value={cityName} class="w-full p-2 border-b border-gray-300 focus:border-black focus:outline-none" />
-            <div class="flex flex-col justify-center items-center mt-4">
+        <div class="flex flex-col h-[90%]">
+            <div class="flex">
+                <input type="text" placeholder="出発地を入力" bind:value={cityName} class="w-full p-2 border-b border-gray-500 focus:border-black focus:outline-none" onkeydown={(e) => {
+                    if (e.key === "Enter") {
+                        getResults(cityName);
+                    }
+                }} />
+                <button aria-label="search" class="ml-4 px-4 py-2 text-black rounded hover:bg-gray-100/50" onclick={() => getResults(cityName)}><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></button>
+            </div>
+            <div class="flex flex-col items-center mt-4 overflow-y-auto scrollbar-transparent">
                 {#if isNotSearchedYet}
                     <img src={undrawLocationTracking} alt="Location Tracking" class="w-42 mt-4" />
-                    <p class="text-gray-400 mt-6 mx-auto">入力して検索開始</p>
+                    <p class="text-gray-600 mt-6 mx-auto">
+                        Press Enter to search for a location
+                    </p>
+                {:else if isSearching}
+                    <svg class="animate-spin h-8 w-8 text-gray-400 mt-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p class="text-gray-600 mt-6">検索中...</p>
                 {:else if noResult}
                     <img src={undrawLocationNotFound} alt="Location Not Found" class="w-42 mt-4" />
-                    <p class="text-gray-400 mt-6">該当する場所が見つかりませんでした</p>
+                    <p class="text-gray-600 mt-6">該当する場所が見つかりませんでした</p>
                 {:else}
-                    <p class="text-gray-500 mt-2">検索結果が見つかりました</p>
+                    {#each results as result}
+                        <button class="w-full p-4 border-b border-gray-200 hover:bg-gray-100/50 cursor-pointer" onclick={() => {
+                            setLatAndLon(parseFloat(result.lat), parseFloat(result.lon));
+                            isReloading = true;
+                            location.reload();
+                        }}>
+                            <p class="font-semibold">{result.display_name}</p>
+                            <p class="text-sm text-gray-500">{result.lat}, {result.lon}</p>
+                        </button>
+                    {/each}
                 {/if}
+            </div>
+            <div class="w-full mt-4 text-sm text-center text-gray-800">
+                <span>or</span>
+            </div>
+            <div class="w-full mt-4 text-sm text-center text-gray-400">
+                <button class="mt-2 text-gray-800 hover:text-gray-600 underline" onclick={() => {
+                    clearLatAndLon();
+                    isReloading = true;
+                    location.reload();
+                }}>位置情報をクリア</button>
             </div>
         </div>
     </div>
+    {#if isReloading}
+        <div class="z-[9999] absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-white/70 rounded-2xl backdrop-blur-sm">
+            <svg class="animate-spin h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-gray-600 mt-6">Applying...</p>
+        </div>
+    {/if}
 </div>
 
 

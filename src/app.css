@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+.scrollbar-transparent::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-transparent {
+    scrollbar-color: rgba(0,0,0,0.3) transparent;
+}
