@@ -11,10 +11,11 @@
 
     interface Props {
         weather: WeatherData;
+        cityName: string | null;
         useLightText: boolean;
     }
 
-    const { weather, useLightText }: Props = $props();
+    const { weather, cityName, useLightText }: Props = $props();
 
     const todayKey = Object.keys(weather.daily)[0];
     const currentHour = new Date(weather.current.time).getHours();
@@ -34,7 +35,7 @@
     <div class="absolute top-4 left-4 flex flex-col items-end">
         <button class="flex items-center p-1 hover:bg-gray-300/30 cursor-pointer rounded" aria-label="open settings" onclick={() => settingsOpen = !settingsOpen} class:selected-bg={settingsOpen}>
             <svg xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="mr-1 icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
-            <span class="text-sm font-semibold max-w-64 overflow-hidden text-nowrap text-ellipsis">{weather.latitude}, {weather.longitude}</span>
+            <span class="text-sm font-semibold max-w-64 overflow-hidden text-nowrap text-ellipsis">{cityName ?? `${weather.latitude}, ${weather.longitude}`}</span>
         </button>
     </div>
     {#if settingsOpen}

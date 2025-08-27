@@ -26,7 +26,7 @@
         </div>
     {:else if weatherData}
         <div>
-            <XWeather weather={weatherData} useLightText />
+            <XWeather weather={weatherData} cityName={data.cityName} useLightText />
             <div class="w-full md:px-16 mt-8 lg:p-6 p-3 text-sm text-center text-gray-400">
                 <p>©2025 nexryai All rights reserved.</p>
                 <p>Weather data: OpenMeteo, Geometry data: OpenStreetMap (openstreetmap.org)</p>

@@ -1,24 +1,30 @@
-import { weatherService } from "skyflame";
+import { weatherService, geocodingService } from "skyflame";
 
 import type { WeatherData } from "$lib/types";
 
 import type { PageServerLoad } from "./$types";
 
 
-export const load: PageServerLoad = async ({ request }) => {
-    const ipLat = request.headers.get("X-Vercel-IP-Latitude");
-    const ipLon = request.headers.get("X-Vercel-IP-Longitude");
+export const load: PageServerLoad = async ({ request, cookies }) => {
+    const lat = Number(cookies.get("lat") ?? request.headers.get("X-Vercel-IP-Latitude") ?? 35.462261);
+    const lon = Number(cookies.get("lon") ?? request.headers.get("X-Vercel-IP-Longitude") ?? 139.632239);
 
     let error = null;
     try {
-        const res = await weatherService.getOverview(
-            Number(ipLat ?? 35.462261) ,
-            Number(ipLon ?? 139.632239)
-        );
+        let weather: WeatherData | null = null;
+        let cityName: string | null = null;
 
-        const weatherData = res as WeatherData;
+        await Promise.all([
+            (async () => {
+                weather = await weatherService.getOverview(lat, lon) as WeatherData;
+            })(),
+            (async () => {
+                const res = await geocodingService.reverseGeocoding(lat.toString(), lon.toString());
+                cityName = res.address.city ?? res.address.town ?? null;
+            })()
+        ]);
 
-        return { weather: weatherData, error };
+        return { weather, cityName, error };
     } catch (err) {
         console.error("Error parsing weather data:", err);
         error = err instanceof Error ? err.message : "Unknown error";
@@ -26,6 +32,7 @@ export const load: PageServerLoad = async ({ request }) => {
 
     return {
         weather: null,
+        cityName: null,
         error
     };
 };
