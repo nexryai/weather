@@ -136,7 +136,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex justify-center-safe mb-8 overflow-x-scroll scroll-container" class:single="{Object.entries(timeGroup).length === 1}">
+                    <div class="flex justify-center-safe mb-8 overflow-x-auto scroll-container" class:single="{Object.entries(timeGroup).length === 1}">
                         {#each Object.entries(timeGroup.summary) as [time, summary], i (time)}
                             <div class="flex flex-col justify-center items-center mx-2">
                                 <div class="w-14 h-14 flex items-center justify-center">
