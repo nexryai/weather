@@ -21,7 +21,10 @@
 >
     {#if error}
         <div class="flex flex-col items-center justify-center h-screen w-full text-center">
-            <p>Unrecoverable Error. Please reload.</p>
+            <div class="mb-4 text-red-600">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+            </div>
+            <p>Unrecoverable Error. Please reload or try again later.</p>
             <p class="mt-4">Technical Details: <span class="font-mono">{error}</span></p>
         </div>
     {:else if weatherData}
